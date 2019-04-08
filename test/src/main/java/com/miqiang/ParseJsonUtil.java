@@ -64,7 +64,7 @@ public class ParseJsonUtil {
         }
         // 生成sql
         List<String> sqls = service.generateSql(schema, tables);
-        if (null != sqls && sqls.size() > 0){
+        if (null != sqls && !sqls.isEmpty()){
             // 将sql语句转成字符串
             StringBuilder strs = new StringBuilder();
             for (String sql : sqls){
@@ -106,7 +106,7 @@ public class ParseJsonUtil {
                     Table table = JSONObject.parseObject(ownedElements, Table.class);
                     // 解析字段
                     JSONArray columns = object.getJSONArray(COLUMN_NODE_NAME);
-                    if (null != columns && columns.size() > 0){
+                    if (null != columns && !columns.isEmpty()){
                         List<Column> columnList = new ArrayList<>();
                         for (Object obj : columns){
                             if (JsonUtil.isJsonObject(String.valueOf(obj))){
@@ -124,8 +124,8 @@ public class ParseJsonUtil {
                     getTables(str);
                 }
             }
-        }
-        if (JsonUtil.isJsonArray(ownedElements)){
+        }else {
+            // TODO 验证array
             JSONArray array = JSONArray.parseArray(ownedElements);
             for (Object obj : array) {
                 String str = String.valueOf(obj);

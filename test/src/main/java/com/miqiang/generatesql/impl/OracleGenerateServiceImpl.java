@@ -24,12 +24,12 @@ public class OracleGenerateServiceImpl implements GenerateService {
     @Override
     public List<String> generateSql(String schema, List<Table> tables) {
         List<String> sqls = new ArrayList<>();
-        if (null != tables && tables.size() > 0){
+        if (null != tables && !tables.isEmpty()){
             for (Table table : tables){
                 String sql = getTableSql(schema, table.getName(), table.getDocumentation());
                 sqls.add(sql);
                 List<Column> columns = table.getColumns();
-                if (null != columns && columns.size() > 0){
+                if (null != columns && !columns.isEmpty()){
                     for (Column column : columns){
                         sqls.add(getColumnSql(schema, table.getName(), column.getName(), column.getDocumentation()));
                     }
@@ -48,9 +48,9 @@ public class OracleGenerateServiceImpl implements GenerateService {
      */
     private String getTableSql(String schema, String name, String documentation) {
         if (StringUtils.isNotBlank(schema)) {
-            return "COMMENT ON TABLE " + schema + "." + name + " IS '" + documentation + "'";
+            return "\nCOMMENT ON TABLE " + schema + "." + name + " IS '" + documentation + "';";
         }
-        return "COMMENT ON TABLE " + name + " IS '" + documentation + "'";
+        return "\nCOMMENT ON TABLE " + name + " IS '" + documentation + "';";
     }
 
     /**
@@ -63,8 +63,8 @@ public class OracleGenerateServiceImpl implements GenerateService {
      */
     private String getColumnSql(String schema, String tableName, String columnName, String documentation) {
         if (StringUtils.isNotBlank(schema)) {
-            return "COMMENT ON COLUMN " + schema + "." + tableName + "." + columnName + " IS '" + documentation + "'";
+            return "COMMENT ON COLUMN " + schema + "." + tableName + "." + columnName + " IS '" + documentation + "';";
         }
-        return "COMMENT ON COLUMN " + tableName + "." + columnName + " IS '" + documentation + "'";
+        return "COMMENT ON COLUMN " + tableName + "." + columnName + " IS '" + documentation + "';";
     }
 }

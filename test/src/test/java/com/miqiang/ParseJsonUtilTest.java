@@ -15,8 +15,8 @@ public class ParseJsonUtilTest {
 
     @Test
     public void parse() {
-        String path = "/Users/miqiang/Desktop/燕郊交通 2.xml";
-        String writeFile = "/Users/miqiang/Desktop/jxbfdsksj.sql";
+        String path = "/Users/miqiang/Desktop/test.mdj";
+        String writeFile = "/Users/miqiang/Desktop/cjgl.sql";
         String dbType = "oracle";
         String schema = "jiaowu";
         ParseJsonUtil util = new ParseJsonUtil();
